@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-hugomod-
 
       - name: Print HUGO_CACHEDIR env
-        run: echo $HUGO_CACHEDIR
+        run: echo "$HUGO_CACHEDIR"
 
       - name: Print Hugo cache directory
         run: hugo config | grep cachedir
