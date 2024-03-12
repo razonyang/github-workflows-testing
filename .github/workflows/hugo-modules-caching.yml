@@ -8,8 +8,8 @@ jobs:
     strategy:
       matrix:
         version:
-          - '0.115.0'
           - '0.116.0'
+          - '0.117.0'
           - '0.118.0'
           - '0.119.0'
           - '0.120.0'
@@ -35,7 +35,7 @@ jobs:
       - name: Cache Hugo modules
         uses: actions/cache@v4
         with:
-          path: /home/runner/.cache/hugo_cache
+          path: /tmp/hugo_cache_runner
           key: ${{ runner.os }}-hugomod-${{ hashFiles('go.sum') }}
           restore-keys: |
             ${{ runner.os }}-hugomod-
