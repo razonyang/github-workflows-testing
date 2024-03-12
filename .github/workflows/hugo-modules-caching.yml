@@ -31,12 +31,6 @@ jobs:
         with:
           hugo-version: ${{ matrix.version }}
           extended: true
-      
-      - name: Print HUGO_CACHEDIR env
-        run: echo $HUGO_CACHEDIR
-
-      - name: Print Hugo cache directory
-        run: hugo config | grep cachedir
 
       - name: Cache Hugo modules
         uses: actions/cache@v4
@@ -45,6 +39,12 @@ jobs:
           key: ${{ runner.os }}-hugomod-${{ hashFiles('go.sum') }}
           restore-keys: |
             ${{ runner.os }}-hugomod-
+
+      - name: Print HUGO_CACHEDIR env
+        run: echo $HUGO_CACHEDIR
+
+      - name: Print Hugo cache directory
+        run: hugo config | grep cachedir
 
       - name: Build
         working-directory: ${{ inputs.name }}
