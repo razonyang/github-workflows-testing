@@ -5,6 +5,18 @@ on:
 
 jobs:
   publish:
+    strategy:
+      matrix:
+        version:
+          - '0.115.0'
+          - '0.116.0'
+          - '0.118.0'
+          - '0.119.0'
+          - '0.120.0'
+          - '0.121.0'
+          - '0.122.0'
+          - '0.123.7'
+          - '0.123.8'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -17,8 +29,11 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.123.7'
+          hugo-version: ${{ matrix.version }}
           extended: true
+      
+      - name: Print HUGO_CACHEDIR env
+        run: echo $HUGO_CACHEDIR
 
       - name: Print Hugo cache directory
         run: hugo config | grep cachedir
