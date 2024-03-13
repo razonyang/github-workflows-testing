@@ -1,6 +1,10 @@
 name: hugo-modules-caching
 
 on:
+  pull_request:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -32,10 +36,15 @@ jobs:
           hugo-version: ${{ matrix.version }}
           extended: true
 
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.1'
+
       - name: Cache Hugo modules
         uses: actions/cache@v4
         with:
-          path: /tmp/hugo_cache_runner
+          path: /home/runner/.cache/hugo_cache
           key: ${{ runner.os }}-hugomod-${{ hashFiles('go.sum') }}
           restore-keys: |
             ${{ runner.os }}-hugomod-
