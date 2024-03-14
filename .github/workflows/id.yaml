@@ -5,8 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: id
-        run: echo "test=hello" >> "$GITHUB_OUTPUT"
-      - run: echo ${{steps.id.outputs.test}}
+        run: >-
+          echo "uid=$(id -u ${USER})" >> "$GITHUB_OUTPUT" &&
+          echo "gid=$(id -g ${USER})" >> "$GITHUB_OUTPUT"
+      - run: echo ${{steps.id.outputs.uid}}
+      - run: echo ${{steps.id.outputs.gid}}
       # - name: Build
       #   uses: addnab/docker-run-action@v3
       #   with:
