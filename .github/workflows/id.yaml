@@ -4,5 +4,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: id
-      - run: ls -l
+      - id: id
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      - run: echo ${{steps.id.outputs.test}}
+      # - name: Build
+      #   uses: addnab/docker-run-action@v3
+      #   with:
+      #     image: hugomods/hugo:exts-0.123.7
+      #     options: >-
+      #       -v ${{ github.workspace }}:/src
+      #       -v /tmp/hugo_cache:/tmp/hugo_cache
+      #       -u $(id -u ${USER}):$(id -g ${USER})
+      #       -e GITHUB_TOKEN
+      #     run: hugo version
