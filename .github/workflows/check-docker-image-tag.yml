@@ -1,20 +1,14 @@
 on: [push]
 
 jobs:
-  check-docker-image-tag-job:
+  check_docker_image_tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
       - id: check-docker-image-tag
-        uses: ./
+        uses: razonyang/github-action-docker-image-tag-exists@v1
         with:
           owner: hugomods
           name: hugo
           tag: '0.128.0'
-      
       - if: ${{ steps.check-docker-image-tag.outputs.exists }}
         run: echo "image tag exists"
-      
-      - if: ${{ !steps.check-docker-image-tag.outputs.exists }}
-        run: echo "image tag does not exist"
