@@ -2,13 +2,27 @@ on: [push]
 
 jobs:
   check_docker_image_tag:
+    strategy:
+      matrix:
+        include:
+          - owner: hugomods
+            name: hugo
+            tag: '0.128.0'
+          - owner: hugomods
+            name: hugo
+            tag: '0.127.0'
+          - owner: foobar
+            name: fizzbuzz
+            tag: '1.2.3'
     runs-on: ubuntu-latest
     steps:
       - id: check-docker-image-tag
         uses: razonyang/github-action-docker-image-tag-exists@v1
         with:
-          owner: hugomods
-          name: hugo
-          tag: '0.128.0'
+          owner: ${{ matrix.owner }}
+          name: ${{ matrix.name }}
+          tag: ${{ matrix.tag }}
       - if: ${{ steps.check-docker-image-tag.outputs.exists }}
         run: echo "image tag exists"
+      - if: ${{ !steps.check-docker-image-tag.outputs.exists }}
+        run: echo "image tag does not exist"
