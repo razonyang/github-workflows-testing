@@ -23,7 +23,7 @@ jobs:
           name: ${{ matrix.name }}
           tag: ${{ matrix.tag }}
       - run: echo "${{ steps.check-docker-image-tag.outputs.exists }}"
-      - if: ${{ steps.check-docker-image-tag.outputs.exists }}
+      - if: ${{ steps.check-docker-image-tag.outputs.exists == true }}
         run: echo "image tag exists"
-      - if: ${{ !steps.check-docker-image-tag.outputs.exists }}
+      - if: ${{ steps.check-docker-image-tag.outputs.exists != true }}
         run: echo "image tag does not exist"
