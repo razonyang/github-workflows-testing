@@ -22,6 +22,7 @@ jobs:
           owner: ${{ matrix.owner }}
           name: ${{ matrix.name }}
           tag: ${{ matrix.tag }}
+      - run: echo "${{ !steps.check-docker-image-tag.outputs.exists }}"
       - if: ${{ steps.check-docker-image-tag.outputs.exists }}
         run: echo "image tag exists"
       - if: ${{ !steps.check-docker-image-tag.outputs.exists }}
